@@ -42,10 +42,13 @@ describe('Hacker Stories', () => {
 
       // tu espera o novo termo digitado ser aparecido
       cy.wait('@getNewTermStories')
+      cy.getLocalStorage(`search`).should(`be.equal`, newTerm)
 
       cy.get(`button:contains(${initialTerm})`).should('be.visible').click()
       // tu volta a esperar o primeiro termo la do inicio
+
       cy.wait('@getStories')
+      cy.getLocalStorage(`search`).should(`be.equal`, initialTerm)
 
       // verifica se deu certo
       cy.get('.item').should('have.length', 20)
